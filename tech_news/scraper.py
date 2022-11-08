@@ -1,9 +1,10 @@
-# Requisito 1
 from requests import get, ReadTimeout
 import time
 from parsel import Selector
+from tech_news.database import create_news
 
 
+# Requisito 1
 def fetch(url):
     headers = {"user-agent": "Fake user-agent"}
     timeout = 3
@@ -57,4 +58,14 @@ def scrape_noticia(html_content):
 
 # Requisito 5
 def get_tech_news(amount):
-    """Seu código deve vir aqui"""
+    tech_news = []
+    url = "https://blog.betrybe.com/"
+    while len(tech_news) < amount:
+        html_content = fetch(url)
+        news_urls = scrape_novidades(html_content)
+        for news_url in news_urls:
+            if len(tech_news) < amount:
+                tech_news.append(scrape_noticia(fetch(news_url)))
+        url = scrape_next_page_link(html_content)
+    create_news(tech_news)
+    return tech_news
