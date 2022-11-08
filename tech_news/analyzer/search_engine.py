@@ -4,8 +4,8 @@ from datetime import datetime
 
 # Requisito 6
 def search_by_title(title):
-    news = search_news({"title": {'$regex': title, '$options': 'i'}})
-    return [(query['title'], query['url']) for query in news]
+    all_news = search_news({"title": {'$regex': title, '$options': 'i'}})
+    return [(news['title'], news['url']) for news in all_news]
 
 
 # Requisito 7
@@ -21,9 +21,11 @@ def search_by_date(date):
 
 # Requisito 8
 def search_by_tag(tag):
-    """Seu código deve vir aqui"""
+    all_news = search_news({"tags": {'$regex': tag, '$options': 'i'}})
+    return [(news['title'], news['url']) for news in all_news]
 
 
 # Requisito 9
 def search_by_category(category):
-    """Seu código deve vir aqui"""
+    all_news = search_news({"category": {'$regex': category, '$options': 'i'}})
+    return [(news['title'], news['url']) for news in all_news]
