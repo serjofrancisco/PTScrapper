@@ -1,4 +1,4 @@
-from database import search_news
+from ..database import search_news
 from datetime import datetime
 
 
